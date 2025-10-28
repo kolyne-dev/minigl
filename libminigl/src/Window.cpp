@@ -1,7 +1,6 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
-#include "../include/Window.h"
-
+#include <minigl/Window.h>
 #include <iostream>
 
 void mngl::Window::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)

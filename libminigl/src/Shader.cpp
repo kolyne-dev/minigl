@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include "../include/Shader.h"
+#include <minigl/Shader.h>
 #include <glad/gl.h>
 
 std::string mngl::Shader::GetFileContent(const std::string& _path)

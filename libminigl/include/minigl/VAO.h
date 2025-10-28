@@ -5,6 +5,8 @@
 #ifndef MINIGL_VAO_H
 #define MINIGL_VAO_H
 
+#include <cstdint>
+
 namespace mngl
 {
     class VAO

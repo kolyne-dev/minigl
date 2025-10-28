@@ -3,7 +3,7 @@
 //
 
 #include <glad/gl.h>
-#include "../include/VAO.h"
+#include <minigl/VAO.h>
 
 mngl::VAO::VAO(void* _verticeData, int _numberOfVertice, int _sizeOfStride, unsigned int _glDrawType) :
     m_numberOfVertice(_numberOfVertice),
