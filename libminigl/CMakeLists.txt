@@ -38,12 +38,11 @@ FetchContent_MakeAvailable(glm)
 
 set(CMAKE_CXX_STANDARD 20)
 
-
-
 add_library(${PROJECT_NAME} STATIC
         src/Window.cpp
         src/Shader.cpp
-        src/VAO.cpp)
+        src/VAO.cpp
+        src/Texture.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw glad_gl_core_43 glm)
 

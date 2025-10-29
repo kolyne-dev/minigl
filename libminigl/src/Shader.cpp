@@ -6,7 +6,10 @@
 #include <fstream>
 #include <sstream>
 #include <minigl/Shader.h>
+#include <glm/gtc/type_ptr.hpp>
 #include <glad/gl.h>
+#include <minigl/Color.h>
+#include <minigl/Texture.h>
 
 std::string mngl::Shader::GetFileContent(const std::string& _path)
 {
@@ -85,7 +88,35 @@ void mngl::Shader::Shutdown() const
     glDeleteProgram(m_id);
 }
 
+void mngl::Shader::SetInt(const std::string& _name, int _value) const
+{
+    Use();
+    glUniform1d(glGetUniformLocation(m_id, _name.c_str()), _value);
+    Shutdown();
+}
+
+void mngl::Shader::SetFloat(const std::string& _name, float _value) const
+{
+    Use();
+    glUniform1f(glGetUniformLocation(m_id, _name.c_str()), _value);
+    Shutdown();
+}
+
+void mngl::Shader::SetColor(const std::string& _name, const Color& _value) const
+{
+    Use();
+    glUniform4f(glGetUniformLocation(m_id, _name.c_str()), _value.r, _value.g, _value.b, _value.a);
+    Shutdown();
+}
+
+void mngl::Shader::SetTexture(const std::string& _name, const Texture& _value) const
+{
+    SetInt(_name, _value.m_textureID);
+}
+
 void mngl::Shader::SetMatrix4(const std::string& _name, const glm::mat4& _value) const
 {
-    glUniformMatrix4fv(glGetUniformLocation(m_id, _name.c_str()), 1, GL_FALSE, &_value[0][0]);
+    Use();
+    glUniformMatrix4fv(glGetUniformLocation(m_id, _name.c_str()), 1, GL_FALSE, glm::value_ptr(_value));
+    Shutdown();
 }

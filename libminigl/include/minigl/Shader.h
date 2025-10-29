@@ -8,8 +8,12 @@
 #include <glm/glm.hpp>
 #include <string>
 
+
 namespace mngl
 {
+    class Color;
+    class Texture;
+
     class Shader
     {
         unsigned int m_id;
@@ -25,6 +29,10 @@ namespace mngl
         void Use() const;
         void Shutdown() const;
 
+        void SetInt(const std::string& _name, int _value) const;
+        void SetFloat(const std::string& _name, float _value) const;
+        void SetColor(const std::string& _name, const Color& _value) const;
+        void SetTexture(const std::string& _name, const Texture& _value) const;
         void SetMatrix4(const std::string& _name, const glm::mat4& _value) const;
     };
 }

@@ -19,7 +19,9 @@ mngl::Window::Window(int _width, int _height, std::string _name)
 
     if (m_win == NULL)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        const char* description;
+        int code = glfwGetError(&description);
+        std::cout << "Failed to create GLFW window: " << description << std::endl;
         glfwTerminate();
         exit(1);
     }
@@ -31,6 +33,10 @@ mngl::Window::Window(int _width, int _height, std::string _name)
         std::cout << "Failed to initialize GLAD" << std::endl;
         exit(1);
     }
+
+    glEnable(GL_DEPTH_TEST);
+
+    m_lastFrame = glfwGetTime();
 }
 
 mngl::Window::~Window()
@@ -40,17 +46,32 @@ mngl::Window::~Window()
 
 bool mngl::Window::IsOpen()
 {
+    double currentFrame = glfwGetTime();
+    m_deltaTime = currentFrame - m_lastFrame;
+    m_lastFrame = currentFrame;
     return !glfwWindowShouldClose(m_win);
+}
+
+float mngl::Window::GetDeltaTime()
+{
+    return m_deltaTime;
 }
 
 void mngl::Window::Clear(const Color& _color)
 {
     glClearColor(_color.r, _color.g, _color.b, _color.a);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void mngl::Window::Display()
 {
     glfwSwapBuffers(m_win);
     glfwPollEvents();
+}
+
+glm::i32vec2 mngl::Window::GetSize()
+{
+    glm::i32vec2 ret;
+    glfwGetWindowSize(m_win, &ret.x, &ret.y);
+    return ret;
 }
