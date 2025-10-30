@@ -6,8 +6,8 @@
 #include <glad/gl.h>
 #include <minigl/Cube.h>
 
-#include "minigl/Color.h"
-#include "minigl/Texture.h"
+#include <minigl/Color.h>
+#include <minigl/Texture.h>
 
 mngl::Cube::Cube(Color _mainColor) : m_vertices{
                                          -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
