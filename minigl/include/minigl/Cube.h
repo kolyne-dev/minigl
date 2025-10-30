@@ -14,7 +14,7 @@ namespace mngl
     class Cube : public Transformable, public Drawable
     {
         VAO m_vao;
-        float m_vertices[36*5];
+        float m_vertices[36 * 5];
         Texture* m_texture;
         Color m_mainColor;
 

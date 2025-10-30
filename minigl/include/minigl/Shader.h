@@ -8,7 +8,6 @@
 #include <glm/glm.hpp>
 #include <string>
 
-
 namespace mngl
 {
     class Color;

@@ -6,7 +6,6 @@
 #define MINIGL_TEXTURE_H
 
 #include <string>
-
 #include "Shader.h"
 
 namespace mngl

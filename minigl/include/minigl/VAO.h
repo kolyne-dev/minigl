@@ -24,9 +24,7 @@ namespace mngl
                        unsigned int _normalized, uint64_t _offset);
         void Draw() const;
     };
-
 }
-
 
 
 #endif //MINIGL_VAO_H

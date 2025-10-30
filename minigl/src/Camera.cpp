@@ -5,7 +5,7 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <minigl/Camera.h>
 
-mngl::Camera::Camera() : m_fov(glm::radians(75.f)), m_aspectRatio(4.f/3.f), m_zFar(100.f), m_zNear(0.1f)
+mngl::Camera::Camera() : m_fov(glm::radians(75.f)), m_aspectRatio(4.f / 3.f), m_zFar(100.f), m_zNear(0.1f)
 {
 }
 

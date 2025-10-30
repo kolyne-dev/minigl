@@ -7,7 +7,6 @@
 #include <glm/glm.hpp>
 #include <glm/detail/type_quat.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
-#include <iostream>
 #include <glm/gtx/quaternion.hpp>
 
 mngl::Transformable::Transformable() : m_position({0.f, 0.f, 0.f}),
@@ -49,6 +48,6 @@ void mngl::Transformable::Scale(const glm::fvec3& _scale)
 glm::mat4 mngl::Transformable::GetTransform() const
 {
     return glm::scale(glm::mat4(1.f), m_scale)
-           * glm::translate(glm::mat4(1.0f), m_position)
-           * glm::toMat4(glm::quat(m_rotation));
+        * glm::translate(glm::mat4(1.0f), m_position)
+        * glm::toMat4(glm::quat(m_rotation));
 }

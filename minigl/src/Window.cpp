@@ -68,7 +68,7 @@ mngl::Camera mngl::Window::GetDefaultCamera()
     Camera ret;
     ret.SetFOV(glm::radians(75.f));
     glm::i32vec2 size = GetSize();
-    ret.SetAspectRatio((float)size.x/(float)size.y);
+    ret.SetAspectRatio((float)size.x / (float)size.y);
     ret.SetPosition({0, 0, -3.f});
     return ret;
 }

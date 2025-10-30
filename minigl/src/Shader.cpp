@@ -37,7 +37,8 @@ unsigned int mngl::Shader::Process(const std::string& _shaderCode, bool _isVerte
     if (_isVertex)
     {
         shaderID = glCreateShader(GL_VERTEX_SHADER);
-    } else
+    }
+    else
     {
         shaderID = glCreateShader(GL_FRAGMENT_SHADER);
     }

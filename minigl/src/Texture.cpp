@@ -3,13 +3,14 @@
 //
 
 #include <glad/gl.h>
+#define STB_IMAGE_IMPLEMENTATION
 #include <ext/stb_image.h>
 #include <minigl/Texture.h>
 #include <iostream>
 
-mngl::Texture::Texture(const std::string& _path, bool _mipmap, bool _unpackAlignment) : m_height(0), m_nbChannel(0), m_textureID(0), m_width(0)
+mngl::Texture::Texture(const std::string& _path, bool _mipmap, bool _unpackAlignment) : m_height(0), m_nbChannel(0),
+    m_textureID(0), m_width(0)
 {
-
     glGenTextures(1, &m_textureID);
     glBindTexture(GL_TEXTURE_2D, m_textureID);
 
@@ -40,7 +41,8 @@ mngl::Texture::Texture(const std::string& _path, bool _mipmap, bool _unpackAlign
         {
             glGenerateMipmap(GL_TEXTURE_2D);
         }
-    } else
+    }
+    else
     {
         std::cout << "stbi_load: Can't load image." << std::endl;
     }

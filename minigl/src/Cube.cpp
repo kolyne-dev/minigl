@@ -67,6 +67,7 @@ void mngl::Cube::SetTexture(Texture* _texture)
 {
     m_texture = _texture;
 }
+
 void mngl::Cube::Draw(const Window& _window, RenderState _state) const
 {
     _state.shader->SetMatrix4("model", _state.transform * GetTransform());
@@ -78,7 +79,8 @@ void mngl::Cube::Draw(const Window& _window, RenderState _state) const
         m_texture->Use();
         m_vao.Draw();
         m_texture->Shutdown();
-    } else
+    }
+    else
     {
         m_vao.Draw();
     }
