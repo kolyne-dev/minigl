@@ -10,7 +10,7 @@
 
 namespace mngl
 {
-    class Color;
+    struct Color;
     class Texture;
 
     class Shader
