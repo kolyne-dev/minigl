@@ -17,10 +17,12 @@ namespace mngl
         int m_sizeOfStride;
 
     public:
+        VAO();
         VAO(void* _verticeData, int _numberOfVertice, int _sizeOfVertice, unsigned int _glDrawType);
+        void Create(void* _verticeData, int _numberOfVertice, int _sizeOfVertice, unsigned int _glDrawType);
         void SetAttrib(unsigned int _index, int _nbOfElement, unsigned int _typeOfVertex,
                        unsigned int _normalized, uint64_t _offset);
-        void Draw();
+        void Draw() const;
     };
 
 }

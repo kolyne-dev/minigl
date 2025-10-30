@@ -17,6 +17,7 @@ namespace mngl
         int m_width;
         int m_height;
         int m_nbChannel;
+
     public:
         Texture(const std::string& _path, bool _mipmap = true, bool _unpackAlignment = false);
         void Use();

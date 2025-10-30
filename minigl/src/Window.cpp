@@ -2,6 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <minigl/Window.h>
 #include <iostream>
+#include <glm/ext/matrix_clip_space.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
 void mngl::Window::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
@@ -36,12 +38,16 @@ mngl::Window::Window(int _width, int _height, std::string _name)
 
     glEnable(GL_DEPTH_TEST);
 
+    m_shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");
+    m_camera = GetDefaultCamera();
+
     m_lastFrame = glfwGetTime();
 }
 
 mngl::Window::~Window()
 {
     glfwTerminate();
+    delete m_shader;
 }
 
 bool mngl::Window::IsOpen()
@@ -57,6 +63,16 @@ float mngl::Window::GetDeltaTime()
     return m_deltaTime;
 }
 
+mngl::Camera mngl::Window::GetDefaultCamera()
+{
+    Camera ret;
+    ret.SetFOV(glm::radians(75.f));
+    glm::i32vec2 size = GetSize();
+    ret.SetAspectRatio((float)size.x/(float)size.y);
+    ret.SetPosition({0, 0, -3.f});
+    return ret;
+}
+
 void mngl::Window::Clear(const Color& _color)
 {
     glClearColor(_color.r, _color.g, _color.b, _color.a);
@@ -69,9 +85,35 @@ void mngl::Window::Display()
     glfwPollEvents();
 }
 
+void mngl::Window::Draw(const Drawable& _draw, RenderState _renderState)
+{
+    if (_renderState.shader == nullptr)
+    {
+        _renderState.shader = m_shader;
+        _renderState.shader->SetMatrix4("projection", m_camera.GetPerspectiveTransform());
+        _renderState.shader->SetMatrix4("view", m_camera.GetTransform());
+    }
+    _draw.Draw(*this, _renderState);
+}
+
 glm::i32vec2 mngl::Window::GetSize()
 {
     glm::i32vec2 ret;
     glfwGetWindowSize(m_win, &ret.x, &ret.y);
     return ret;
+}
+
+mngl::Shader* mngl::Window::GetDefaultShader()
+{
+    return m_shader;
+}
+
+void mngl::Window::SetCamera(const Camera& _camera)
+{
+    m_camera = _camera;
+}
+
+const mngl::Camera& mngl::Window::GetCurrentCamera()
+{
+    return m_camera;
 }

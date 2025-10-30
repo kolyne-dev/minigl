@@ -5,12 +5,23 @@
 #include <glad/gl.h>
 #include <minigl/VAO.h>
 
-mngl::VAO::VAO(void* _verticeData, int _numberOfVertice, int _sizeOfStride, unsigned int _glDrawType) :
-    m_numberOfVertice(_numberOfVertice),
-    m_sizeOfStride(_sizeOfStride),
+mngl::VAO::VAO() :
+    m_numberOfVertice(0),
+    m_sizeOfStride(0),
     m_VAO(0),
     m_VBO(0)
 {
+}
+
+mngl::VAO::VAO(void* _verticeData, int _numberOfVertice, int _sizeOfVertice, unsigned int _glDrawType) : VAO()
+{
+    Create(_verticeData, _numberOfVertice, _sizeOfVertice, _glDrawType);
+}
+
+void mngl::VAO::Create(void* _verticeData, int _numberOfVertice, int _sizeOfStride, unsigned int _glDrawType)
+{
+    m_numberOfVertice = _numberOfVertice;
+    m_sizeOfStride = _sizeOfStride;
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_VBO);
     glBindVertexArray(m_VAO);
@@ -33,7 +44,7 @@ void mngl::VAO::SetAttrib(unsigned int _index, int _nbOfElement, unsigned int _t
     glBindVertexArray(0);
 }
 
-void mngl::VAO::Draw()
+void mngl::VAO::Draw() const
 {
     glBindVertexArray(m_VAO);
     glDrawArrays(GL_TRIANGLES, 0, m_numberOfVertice);
