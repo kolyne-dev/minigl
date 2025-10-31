@@ -32,7 +32,7 @@ FetchContent_Declare(
         GIT_TAG 	master
 )
 
-set(GLM_ENABLE_CXX_20 TRUE)
+set(GLM_ENABLE_CXX_20 ON)
 
 FetchContent_MakeAvailable(glm)
 
@@ -45,7 +45,9 @@ add_library(${PROJECT_NAME} STATIC
         src/Texture.cpp
         src/Transformable.cpp
         src/Camera.cpp
-        src/Cube.cpp)
+        src/Cube.cpp
+        include/minigl/Utils.h
+        src/Utils.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw glad_gl_core_43 glm)
 

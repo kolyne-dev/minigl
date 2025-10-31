@@ -115,6 +115,13 @@ void mngl::Shader::SetTexture(const std::string& _name, const Texture& _value) c
     SetInt(_name, _value.m_textureID);
 }
 
+void mngl::Shader::SetVector3(const std::string& _name, const glm::vec3& _value) const
+{
+    Use();
+    glUniform3f(glGetUniformLocation(m_id, _name.c_str()), _value.x, _value.y, _value.z);
+    Shutdown();
+}
+
 void mngl::Shader::SetMatrix4(const std::string& _name, const glm::mat4& _value) const
 {
     Use();

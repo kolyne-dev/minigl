@@ -18,12 +18,15 @@ namespace mngl
     public:
         virtual ~Transformable() = default;
         Transformable();
+        glm::fvec3 GetPosition();
         void SetPosition(const glm::fvec3& _position);
         void Move(const glm::fvec3& _position);
 
+        glm::fvec3 GetRotation();
         void SetRotation(const glm::fvec3& _rotation);
         void Rotate(const glm::fvec3& _rotation);
 
+        glm::fvec3 GetScale();
         void SetScale(const glm::fvec3& _scale);
         void Scale(const glm::fvec3& _scale);
 

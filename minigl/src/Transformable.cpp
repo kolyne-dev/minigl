@@ -15,6 +15,11 @@ mngl::Transformable::Transformable() : m_position({0.f, 0.f, 0.f}),
 {
 }
 
+glm::fvec3 mngl::Transformable::GetPosition()
+{
+    return m_position;
+}
+
 void mngl::Transformable::SetPosition(const glm::fvec3& _position)
 {
     m_position = _position;
@@ -25,6 +30,11 @@ void mngl::Transformable::Move(const glm::fvec3& _position)
     m_position += _position;
 }
 
+glm::fvec3 mngl::Transformable::GetRotation()
+{
+    return m_rotation;
+}
+
 void mngl::Transformable::SetRotation(const glm::fvec3& _rotation)
 {
     m_rotation = _rotation;
@@ -33,6 +43,11 @@ void mngl::Transformable::SetRotation(const glm::fvec3& _rotation)
 void mngl::Transformable::Rotate(const glm::fvec3& _rotation)
 {
     m_rotation += _rotation;
+}
+
+glm::fvec3 mngl::Transformable::GetScale()
+{
+    return m_scale;
 }
 
 void mngl::Transformable::SetScale(const glm::fvec3& _scale)
@@ -47,7 +62,7 @@ void mngl::Transformable::Scale(const glm::fvec3& _scale)
 
 glm::mat4 mngl::Transformable::GetTransform() const
 {
-    return glm::scale(glm::mat4(1.f), m_scale)
-        * glm::translate(glm::mat4(1.0f), m_position)
+    return glm::translate(glm::mat4(1.0f), m_position)
+        * glm::scale(glm::mat4(1.f), m_scale)
         * glm::toMat4(glm::quat(m_rotation));
 }

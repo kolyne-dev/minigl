@@ -90,8 +90,8 @@ void mngl::Window::Draw(const Drawable& _draw, RenderState _renderState)
     if (_renderState.shader == nullptr)
     {
         _renderState.shader = m_shader;
-        _renderState.shader->SetMatrix4("projection", m_camera.GetPerspectiveTransform());
-        _renderState.shader->SetMatrix4("view", m_camera.GetTransform());
+        _renderState.shader->SetMatrix4("_projection", m_camera.GetPerspectiveTransform());
+        _renderState.shader->SetMatrix4("_view", m_camera.GetTransform());
     }
     _draw.Draw(*this, _renderState);
 }

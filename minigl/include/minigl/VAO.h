@@ -19,10 +19,10 @@ namespace mngl
     public:
         VAO();
         VAO(void* _verticeData, int _numberOfVertice, int _sizeOfVertice, unsigned int _glDrawType);
-        void Create(void* _verticeData, int _numberOfVertice, int _sizeOfVertice, unsigned int _glDrawType);
+        void Create(void* _verticeData, int _numberOfVertice, int _sizeOfVerticeData, unsigned int _glDrawType);
         void SetAttrib(unsigned int _index, int _nbOfElement, unsigned int _typeOfVertex,
-                       unsigned int _normalized, uint64_t _offset);
-        void Draw() const;
+                       unsigned int _normalized,int _sizeOfStride, uint64_t _offset);
+        void Draw(int _type = GL_TRIANGLES, int _numberOfVertice = -1) const;
     };
 }
 

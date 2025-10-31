@@ -32,9 +32,9 @@ namespace mngl
         void SetFloat(const std::string& _name, float _value) const;
         void SetColor(const std::string& _name, const Color& _value) const;
         void SetTexture(const std::string& _name, const Texture& _value) const;
+        void SetVector3(const std::string& _name, const glm::vec3& _value) const;
         void SetMatrix4(const std::string& _name, const glm::mat4& _value) const;
     };
 }
-
 
 #endif //MINIGL_SHADER_H
