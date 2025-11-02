@@ -24,7 +24,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(glad)
 
-glad_add_library(glad_gl_core_43 STATIC REPRODUCIBLE LOADER API gl:core=4.3)
+glad_add_library(glad_gl_core_41 STATIC REPRODUCIBLE LOADER API gl:core=4.1)
 
 FetchContent_Declare(
         glm
@@ -49,7 +49,7 @@ add_library(${PROJECT_NAME} STATIC
         include/minigl/Utils.h
         src/Utils.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} PUBLIC glfw glad_gl_core_43 glm)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw glad_gl_core_41 glm)
 
 
 
