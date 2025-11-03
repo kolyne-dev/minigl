@@ -19,6 +19,11 @@ mngl::VAO::VAO(void* _verticeData, int _numberOfVertice, int _sizeOfVertice, uns
     Create(_verticeData, _numberOfVertice, _sizeOfVertice, _glDrawType);
 }
 
+mngl::VAO::~VAO() {
+    glDeleteVertexArrays(1, &m_VAO);
+    glDeleteBuffers(1, &m_VBO);
+}
+
 void mngl::VAO::Create(void* _verticeData, int _numberOfVertice, int _sizeOfVerticeData, unsigned int _glDrawType)
 {
     m_numberOfVertice = _numberOfVertice;

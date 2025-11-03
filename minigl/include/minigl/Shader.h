@@ -24,6 +24,7 @@ namespace mngl
 
     public:
         Shader(const std::string& _vertexPath, const std::string& _fragmentPath);
+        ~Shader();
 
         void Use() const;
         void Shutdown() const;

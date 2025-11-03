@@ -81,16 +81,17 @@ void mngl::Cube::Draw(const Window& _window, RenderState _state) const
 {
     _state.shader->SetMatrix4("_model", _state.transform * GetTransform());
     _state.shader->SetColor("_mainColor", m_mainColor);
-    _state.shader->Use();
     if (m_texture != nullptr)
     {
         _state.shader->SetTexture("_texture", *m_texture);
+        _state.shader->Use();
         m_texture->Use();
         m_vao.Draw();
         m_texture->Shutdown();
     }
     else
     {
+        _state.shader->Use();
         m_vao.Draw();
     }
     _state.shader->Shutdown();

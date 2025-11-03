@@ -79,6 +79,10 @@ mngl::Shader::Shader(const std::string& _vertexPath, const std::string& _fragmen
     glDeleteShader(m_fragmentShader);
 }
 
+mngl::Shader::~Shader() {
+    glDeleteProgram(m_id);
+}
+
 void mngl::Shader::Use() const
 {
     glUseProgram(m_id);
@@ -86,7 +90,7 @@ void mngl::Shader::Use() const
 
 void mngl::Shader::Shutdown() const
 {
-    glDeleteProgram(m_id);
+    glUseProgram(0);
 }
 
 void mngl::Shader::SetInt(const std::string& _name, int _value) const
