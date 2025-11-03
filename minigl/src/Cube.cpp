@@ -54,12 +54,12 @@ mngl::Cube::Cube(Color _mainColor) : m_vertices{
         m_allVertices[36*3+i * 2 + 0] = m_texCoords[m_texInds[i % 6]].x;
         m_allVertices[36*3+i * 2 + 1] = m_texCoords[m_texInds[i % 6]].y;
     }
-    for (int i = 0; i < 36; i++) {
-        m_allVertices[36*5+i * 3 + 0] = m_normals[m_indices[i / 6]].x;
-        m_allVertices[36*5+i * 3 + 1] = m_normals[m_indices[i / 6]].y;
-        m_allVertices[36*5+i * 3 + 2] = m_normals[m_indices[i / 6]].z;
-    }
-    //Utils::GenerateBasicNormal(m_allVertices, 36, 3, &m_allVertices[36 * 5]);
+    // for (int i = 0; i < 36; i++) {
+    //     m_allVertices[36*5+i * 3 + 0] = m_normals[m_indices[i / 6]].x;
+    //     m_allVertices[36*5+i * 3 + 1] = m_normals[m_indices[i / 6]].y;
+    //     m_allVertices[36*5+i * 3 + 2] = m_normals[m_indices[i / 6]].z;
+    // }
+    Utils::GenerateBasicNormal(m_allVertices, 36, 3, &m_allVertices[36 * 5]);
 
     m_vao.Create(m_allVertices, 36, (36 * 8) * sizeof(float), GL_STATIC_DRAW);
     m_vao.SetAttrib(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);

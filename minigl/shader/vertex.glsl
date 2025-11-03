@@ -20,8 +20,8 @@ void main()
 {
     gl_Position = _projection * _view * _model * vec4(aPos, 1.0);
     v.TexCoords = vec2(aTexCoor.x, 1-aTexCoor.y);
-    v.FragPos = vec3(_projection * _view * _model * vec4(aPos, 1.0));
-    v.Normal = vec3(_projection * _view * transpose(inverse(_model)) * vec4(aNormal, 1.0));
-    v.LightPos = vec3(_projection * _view * vec4(_lightPos, 1));
-    v.ViewPos = vec3(_projection * _view * vec4(0, 0, 0, 1));
+    v.FragPos = vec3(_view * _model * vec4(aPos, 1.0));
+    v.Normal = vec3(_view * transpose(inverse(_model)) * vec4(aNormal, 1.0));
+    v.LightPos = vec3(_view * vec4(_lightPos, 1));
+    v.ViewPos = vec3(_view * vec4(0, 0, 0, 1));
 }

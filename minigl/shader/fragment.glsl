@@ -24,7 +24,7 @@ void main()
     vec4 diffuse = diff * _lightColor;
 
     float specularStrength = 0.5;
-    vec3 viewDir = normalize(v.ViewPos-v.FragPos);
+    vec3 viewDir = normalize(-v.FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
     vec4 specular = specularStrength * spec * _lightColor;
