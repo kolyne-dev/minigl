@@ -14,17 +14,22 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 FetchContent_MakeAvailable(glfw)
 
-FetchContent_Declare(
-        glad
-        GIT_REPOSITORY https://github.com/Dav1dde/glad.git
-        GIT_TAG        73db193f853e2ee079bf3ca8a64aa2eaf6459043 #v2.0.8
-        GIT_PROGRESS   TRUE
-        SOURCE_SUBDIR  cmake
-)
+option(MINIGL_BUILD_GLAD "Build glad from git source" OFF)
 
-FetchContent_MakeAvailable(glad)
-
-glad_add_library(glad_gl_core_41 STATIC REPRODUCIBLE LOADER API gl:core=4.1)
+if (MINIGL_BUILD_GLAD)
+    FetchContent_Declare(
+            glad
+            GIT_REPOSITORY https://github.com/Dav1dde/glad.git
+            GIT_TAG        73db193f853e2ee079bf3ca8a64aa2eaf6459043 #v2.0.8
+            GIT_PROGRESS   TRUE
+            SOURCE_SUBDIR  cmake
+    )
+    FetchContent_MakeAvailable(glad)
+    glad_add_library(glad_gl_core_41 STATIC REPRODUCIBLE LOADER API gl:core=4.1)
+else ()
+    add_library(glad_gl_core_41 STATIC ${PROJECT_SOURCE_DIR}/dep/glad/src/gl.c)
+    target_include_directories(glad_gl_core_41 PUBLIC ${PROJECT_SOURCE_DIR}/dep/glad/include)
+endif ()
 
 FetchContent_Declare(
         glm
@@ -46,10 +51,9 @@ add_library(${PROJECT_NAME} STATIC
         src/Transformable.cpp
         src/Camera.cpp
         src/Cube.cpp
-        include/minigl/Utils.h
         src/Utils.cpp)
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_SOURCE_DIR}/include)
-target_link_libraries(${PROJECT_NAME} PUBLIC glfw glad_gl_core_41 glm)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw glad_gl_core_41  glm)
 
 
 
