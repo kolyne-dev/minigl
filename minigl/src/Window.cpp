@@ -46,8 +46,8 @@ mngl::Window::Window(int _width, int _height, std::string _name)
 
 mngl::Window::~Window()
 {
-    glfwTerminate();
     delete m_shader;
+    glfwTerminate();
 }
 
 bool mngl::Window::IsOpen()
