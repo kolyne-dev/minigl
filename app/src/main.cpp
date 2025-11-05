@@ -32,9 +32,9 @@ int main(int argc, char** argv)
 
     while (win.IsOpen())
     {
-        //c.Rotate(glm::vec3({1.0f, 1.f, 0}) * glm::radians(45.f * (float)win.GetDeltaTime()));
+        c.Rotate(glm::vec3({1.0f, 1.f, 0}) * glm::radians(45.f * (float)win.GetDeltaTime()));
 
-        light.SetPosition({cos(glfwGetTime()) * 2.0f, sin(glfwGetTime()) * 2.0f, 0});
+        light.SetPosition({cos(glfwGetTime()) * 1.0f, sin(glfwGetTime()) * 1.0f, 2});
         win.GetDefaultShader()->SetVector3("_lightPos", light.GetPosition());
 
         win.Clear(mngl::Color::Black);
