@@ -29,3 +29,7 @@ void mngl::Camera::SetNearFarPlane(float _zNear, float _zFar)
     m_zNear = _zNear;
     m_zFar = _zFar;
 }
+
+glm::mat4 mngl::Camera::GetTransform() const {
+    return glm::inverse(Transformable::GetTransform());
+}

@@ -30,7 +30,7 @@ namespace mngl
         void SetScale(const glm::fvec3& _scale);
         void Scale(const glm::fvec3& _scale);
 
-        [[nodiscard]] glm::mat4 GetTransform() const;
+        [[nodiscard]] virtual glm::mat4 GetTransform() const;
     };
 } // mngl
 

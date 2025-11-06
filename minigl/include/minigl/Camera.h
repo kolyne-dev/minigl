@@ -21,6 +21,7 @@ namespace mngl
         void SetAspectRatio(float _ratio);
         [[nodiscard]] glm::mat4 GetPerspectiveTransform() const;
         void SetNearFarPlane(float _zNear, float _zFar);
+        [[nodiscard]] glm::mat4 GetTransform() const override;
     };
 }
 

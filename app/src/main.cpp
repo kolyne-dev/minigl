@@ -26,15 +26,19 @@ int main(int argc, char** argv)
 
     win.GetDefaultShader()->SetColor("_lightColor", mngl::Color::White);
     win.GetDefaultShader()->SetFloat("_ambientStrength", 0.1f);
-    light.SetPosition({4, 4, 0});
+    //c.SetPosition({0, 1, 0});
     c.SetRotation({1.f, 1.f, 1.f});
     c.SetScale({0.5, 0.5, 0.5});
 
+    // auto camera = win.GetCurrentCamera();
+    // camera.Move({0, 1, 0});
+    // win.SetCamera(camera);
+
     while (win.IsOpen())
     {
-        c.Rotate(glm::vec3({1.0f, 1.f, 0}) * glm::radians(45.f * (float)win.GetDeltaTime()));
+        //c.Rotate(glm::vec3({1.0f, 1.f, 0}) * glm::radians(45.f * (float)win.GetDeltaTime()));
 
-        light.SetPosition({cos(glfwGetTime()) * 1.0f, sin(glfwGetTime()) * 1.0f, 2});
+        light.SetPosition({cos(glfwGetTime()) * 2.0f, sin(glfwGetTime()) * 2.0f, -2});
         win.GetDefaultShader()->SetVector3("_lightPos", light.GetPosition());
 
         win.Clear(mngl::Color::Black);
