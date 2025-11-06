@@ -4,8 +4,8 @@
 
 #ifndef MINIGL_CUBE_H
 #define MINIGL_CUBE_H
-#include "Color.h"
 #include "Drawable.h"
+#include "Material.h"
 #include "Transformable.h"
 #include "VAO.h"
 
@@ -21,15 +21,15 @@ namespace mngl
         int m_indices[6 * 6];
         int m_texInds[6];
 
-        float m_allVertices[36 * 8];
+        float m_allVertices[36 * 8]{};
 
-        Texture* m_texture;
-        Color m_mainColor;
+        Material m_mainMaterial;
 
     public:
-        Cube(Color _mainColor = Color::White);
-        void SetColor(Color _mainColor);
-        void SetTexture(Texture* _texture);
+        Cube();
+        Cube(Material _mainMaterial);
+        void SetMaterial(Material _mainMaterial);
+        Material GetMaterial() const;
         void Draw(const Window& _window, RenderState _state) const override;
     };
 } // mngl

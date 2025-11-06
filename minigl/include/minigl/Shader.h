@@ -11,7 +11,8 @@
 namespace mngl
 {
     struct Color;
-    class Texture;
+    class Material;
+    class Light;
 
     class Shader
     {
@@ -32,7 +33,8 @@ namespace mngl
         void SetInt(const std::string& _name, int _value) const;
         void SetFloat(const std::string& _name, float _value) const;
         void SetColor(const std::string& _name, const Color& _value) const;
-        void SetTexture(const std::string& _name, const Texture& _value) const;
+        void SetMaterial(const std::string& _name, const Material& _value) const;
+        void SetLight(const std::string& _name, const Light& _value) const;
         void SetVector3(const std::string& _name, const glm::vec3& _value) const;
         void SetMatrix4(const std::string& _name, const glm::mat4& _value) const;
     };

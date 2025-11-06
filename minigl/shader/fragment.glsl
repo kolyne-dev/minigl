@@ -1,39 +1,46 @@
 #version 330 core
 out vec4 FragColor;
 
+struct Light {
+    vec3 position;
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+};
+
+struct Material {
+    vec4 ambient;
+    vec4 diffuse;
+    sampler2D diffuseTexture;
+    vec4 specular;
+    sampler2D specularTexture;
+    float shininess;
+};
+
 in VERTEX_OUT {
     vec3 FragPos;
     vec3 Normal;
     vec2 TexCoords;
-    vec3 LightPos;
-    vec3 ViewPos;
+    Light MainLight;
 } v;
 
-uniform sampler2D _texture;
-uniform vec4 _mainColor;
-uniform vec4 _lightColor;
-uniform float _ambientStrength;
+uniform Material _mainMaterial;
+
 
 void main()
 {
-    vec4 ambient = _ambientStrength * _lightColor;
+    ivec2 decalSize = textureSize(_mainMaterial.diffuseTexture, 0);
+    vec4 ambient = _mainMaterial.ambient * texture(_mainMaterial.diffuseTexture, v.TexCoords) * v.MainLight.ambient;
 
     vec3 norm = normalize(v.Normal);
-    vec3 lightDir = normalize(v.LightPos - v.FragPos);
+    vec3 lightDir = normalize(v.MainLight.position - v.FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec4 diffuse = diff * _lightColor;
+    vec4 diffuse = (diff * _mainMaterial.diffuse * texture(_mainMaterial.diffuseTexture, v.TexCoords)) * v.MainLight.diffuse;
 
-    float specularStrength = 0.5;
     vec3 viewDir = normalize(-v.FragPos);
     vec3 reflectDir = reflect(-lightDir, norm);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec4 specular = specularStrength * spec * _lightColor;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), _mainMaterial.shininess);
+    vec4 specular = (spec * _mainMaterial.specular * texture(_mainMaterial.specularTexture, v.TexCoords)) * v.MainLight.specular;
 
-    vec4 lightFactor = (ambient + diffuse + specular);
-
-    ivec2 decalSize = textureSize(_texture, 0);
-    if (decalSize != ivec2(1, 1))
-        FragColor = _mainColor * texture(_texture, v.TexCoords) * lightFactor;
-    else
-        FragColor = _mainColor * lightFactor;
+    FragColor = (ambient + diffuse + specular);
 }

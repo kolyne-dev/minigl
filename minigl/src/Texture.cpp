@@ -8,6 +8,8 @@
 #include <minigl/Texture.h>
 #include <iostream>
 
+mngl::Texture* mngl::Texture::Default;
+
 mngl::Texture::Texture(const std::string& _path, bool _mipmap, bool _unpackAlignment) : m_height(0), m_nbChannel(0),
     m_textureID(0), m_width(0)
 {
@@ -51,9 +53,9 @@ mngl::Texture::Texture(const std::string& _path, bool _mipmap, bool _unpackAlign
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void mngl::Texture::Use()
+void mngl::Texture::Use(int _textureIndex)
 {
-    glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE0 + _textureIndex);
     glBindTexture(GL_TEXTURE_2D, m_textureID);
 }
 

@@ -6,12 +6,11 @@
 #include <glad/gl.h>
 #include <minigl/Cube.h>
 
-#include <minigl/Color.h>
 #include <minigl/Texture.h>
 
 #include "minigl/Utils.h"
 
-mngl::Cube::Cube(Color _mainColor) : m_vertices{
+mngl::Cube::Cube() : m_vertices{
                                          glm::vec3(-1, -1, -1),
                                          glm::vec3(1, -1, -1),
                                          glm::vec3(1, 1, -1),
@@ -43,7 +42,7 @@ mngl::Cube::Cube(Color _mainColor) : m_vertices{
                                          4, 5, 0, 0, 5, 1
                                      }, m_texInds{
                                          0, 1, 3, 3, 1, 2
-                                     }, m_mainColor(_mainColor), m_texture(nullptr)
+                                     }
 {
     for (int i = 0; i < 36; i++) {
         m_allVertices[i * 3 + 0] = m_vertices[m_indices[i]].x;
@@ -67,32 +66,26 @@ mngl::Cube::Cube(Color _mainColor) : m_vertices{
     m_vao.SetAttrib(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 36 * 5 * sizeof(float));
 }
 
-void mngl::Cube::SetColor(Color _mainColor)
-{
-    m_mainColor = _mainColor;
+
+mngl::Cube::Cube(Material _mainMaterial) : Cube() {
+    SetMaterial(_mainMaterial);
 }
 
-void mngl::Cube::SetTexture(Texture* _texture)
-{
-    m_texture = _texture;
+void mngl::Cube::SetMaterial(Material _mainMaterial) {
+    m_mainMaterial = _mainMaterial;
+}
+
+mngl::Material mngl::Cube::GetMaterial() const {
+    return m_mainMaterial;
 }
 
 void mngl::Cube::Draw(const Window& _window, RenderState _state) const
 {
     _state.shader->SetMatrix4("_model", _state.transform * GetTransform());
-    _state.shader->SetColor("_mainColor", m_mainColor);
-    if (m_texture != nullptr)
-    {
-        _state.shader->SetTexture("_texture", *m_texture);
-        _state.shader->Use();
-        m_texture->Use();
-        m_vao.Draw();
-        m_texture->Shutdown();
-    }
-    else
-    {
-        _state.shader->Use();
-        m_vao.Draw();
-    }
+    m_mainMaterial.Use();
+    _state.shader->SetMaterial("_mainMaterial", m_mainMaterial);
+    _state.shader->Use();
+    m_vao.Draw();
     _state.shader->Shutdown();
+    m_mainMaterial.Shutdown();
 }

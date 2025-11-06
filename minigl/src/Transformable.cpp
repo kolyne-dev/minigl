@@ -15,7 +15,7 @@ mngl::Transformable::Transformable() : m_position({0.f, 0.f, 0.f}),
 {
 }
 
-glm::fvec3 mngl::Transformable::GetPosition()
+glm::fvec3 mngl::Transformable::GetPosition() const
 {
     return m_position;
 }
@@ -30,7 +30,7 @@ void mngl::Transformable::Move(const glm::fvec3& _position)
     m_position += _position;
 }
 
-glm::fvec3 mngl::Transformable::GetRotation()
+glm::fvec3 mngl::Transformable::GetRotation() const
 {
     return m_rotation;
 }
@@ -45,7 +45,7 @@ void mngl::Transformable::Rotate(const glm::fvec3& _rotation)
     m_rotation += _rotation;
 }
 
-glm::fvec3 mngl::Transformable::GetScale()
+glm::fvec3 mngl::Transformable::GetScale() const
 {
     return m_scale;
 }

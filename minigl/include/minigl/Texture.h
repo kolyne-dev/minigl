@@ -19,8 +19,10 @@ namespace mngl
 
     public:
         Texture(const std::string& _path, bool _mipmap = true, bool _unpackAlignment = false);
-        void Use();
+        void Use(int _textureIndex = 0);
         void Shutdown();
+
+        static Texture* Default;
 
         friend Shader;
     };

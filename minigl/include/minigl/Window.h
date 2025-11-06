@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Color.h"
 #include "Drawable.h"
+#include "Light.h"
 
 class GLFWwindow;
 
@@ -20,6 +21,7 @@ namespace mngl
 
         Shader* m_shader;
         Camera m_camera;
+        Light m_light;
 
         static void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
 
@@ -35,6 +37,9 @@ namespace mngl
         void SetCamera(const Camera& _camera);
         const Camera& GetCurrentCamera();
         Camera GetDefaultCamera();
+
+        void SetLight(const Light& _light);
+        const Light& GetCurrentLight();
 
         void Clear(const Color& _color);
         void Display();

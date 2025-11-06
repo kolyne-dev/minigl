@@ -5,6 +5,8 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/ext/matrix_transform.hpp>
 
+#include "minigl/Texture.h"
+
 void mngl::Window::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -36,6 +38,8 @@ mngl::Window::Window(int _width, int _height, std::string _name)
         exit(1);
     }
 
+    Texture::Default = new Texture("./shader/none.png", true, true);
+
     glEnable(GL_DEPTH_TEST);
 
     m_shader = new Shader("./shader/vertex.glsl", "./shader/fragment.glsl");
@@ -46,6 +50,7 @@ mngl::Window::Window(int _width, int _height, std::string _name)
 
 mngl::Window::~Window()
 {
+    delete Texture::Default;
     delete m_shader;
     glfwTerminate();
 }
@@ -73,6 +78,14 @@ mngl::Camera mngl::Window::GetDefaultCamera()
     return ret;
 }
 
+void mngl::Window::SetLight(const Light &_light) {
+    m_light = _light;
+}
+
+const mngl::Light& mngl::Window::GetCurrentLight() {
+    return m_light;
+}
+
 void mngl::Window::Clear(const Color& _color)
 {
     glClearColor(_color.r, _color.g, _color.b, _color.a);
@@ -92,6 +105,7 @@ void mngl::Window::Draw(const Drawable& _draw, RenderState _renderState)
         _renderState.shader = m_shader;
         _renderState.shader->SetMatrix4("_projection", m_camera.GetPerspectiveTransform());
         _renderState.shader->SetMatrix4("_view", m_camera.GetTransform());
+        _renderState.shader->SetLight("_mainLight", m_light);
     }
     _draw.Draw(*this, _renderState);
 }

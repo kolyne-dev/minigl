@@ -10,6 +10,9 @@
 #include <glad/gl.h>
 #include <minigl/Color.h>
 #include <minigl/Texture.h>
+#include <minigl/Material.h>
+
+#include "minigl/Light.h"
 
 std::string mngl::Shader::GetFileContent(const std::string& _path)
 {
@@ -114,9 +117,20 @@ void mngl::Shader::SetColor(const std::string& _name, const Color& _value) const
     Shutdown();
 }
 
-void mngl::Shader::SetTexture(const std::string& _name, const Texture& _value) const
-{
-    SetInt(_name, _value.m_textureID);
+void mngl::Shader::SetMaterial(const std::string &_name, const Material &_value) const {
+    SetColor(_name+".ambient" ,_value.m_ambientColor);
+    SetColor(_name+".diffuse" ,_value.m_diffuseColor);
+    SetColor(_name+".specular" ,_value.m_specularColor);
+    SetFloat(_name+".shininess", _value.m_shininess);
+    SetInt(_name+".diffuseTexture",0);
+    SetInt(_name+".specularTexture", 1);
+}
+
+void mngl::Shader::SetLight(const std::string &_name, const Light &_value) const {
+    SetVector3(_name+".position", _value.GetPosition());
+    SetColor(_name+".ambient" ,_value.m_ambientColor);
+    SetColor(_name+".diffuse" ,_value.m_diffuseColor);
+    SetColor(_name+".specular" ,_value.m_specularColor);
 }
 
 void mngl::Shader::SetVector3(const std::string& _name, const glm::vec3& _value) const
