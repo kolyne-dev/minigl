@@ -38,7 +38,7 @@ int main(int argc, char** argv)
     {
         //c.Rotate(glm::vec3({1.0f, 1.f, 0}) * glm::radians(45.f * (float)win.GetDeltaTime()));
 
-        light.SetPosition({cos(glfwGetTime()) * 2.0f, sin(glfwGetTime()) * 2.0f, -2});
+        light.SetPosition({cos(glfwGetTime()) * 1.0f, sin(glfwGetTime()) * 1.0f, -1});
         win.GetDefaultShader()->SetVector3("_lightPos", light.GetPosition());
 
         win.Clear(mngl::Color::Black);
