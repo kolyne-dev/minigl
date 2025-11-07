@@ -99,7 +99,7 @@ void mngl::Shader::Shutdown() const
 void mngl::Shader::SetInt(const std::string& _name, int _value) const
 {
     Use();
-    glUniform1d(glGetUniformLocation(m_id, _name.c_str()), _value);
+    glUniform1i(glGetUniformLocation(m_id, _name.c_str()), _value);
     Shutdown();
 }
 
