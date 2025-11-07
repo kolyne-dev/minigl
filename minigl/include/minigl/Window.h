@@ -43,7 +43,7 @@ namespace mngl
 
         void Clear(const Color& _color);
         void Display();
-        void Draw(const Drawable& _draw, RenderState _renderState = {glm::mat4(1.f), nullptr});
+        void Draw(const Drawable& _draw, RenderState _renderState = {glm::mat4(1.f), nullptr}) const;
     };
 }
 

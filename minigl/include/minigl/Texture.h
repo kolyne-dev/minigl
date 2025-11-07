@@ -20,7 +20,7 @@ namespace mngl
     public:
         Texture(const std::string& _path, bool _mipmap = true, bool _unpackAlignment = false);
         void Use(int _textureIndex = 0);
-        void Shutdown();
+        void Shutdown(int _textureIndex = 0);
 
         static Texture* Default;
 

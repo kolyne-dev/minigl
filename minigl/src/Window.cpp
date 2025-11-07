@@ -98,7 +98,7 @@ void mngl::Window::Display()
     glfwPollEvents();
 }
 
-void mngl::Window::Draw(const Drawable& _draw, RenderState _renderState)
+void mngl::Window::Draw(const Drawable& _draw, RenderState _renderState) const
 {
     if (_renderState.shader == nullptr)
     {

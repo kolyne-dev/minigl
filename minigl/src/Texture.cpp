@@ -59,7 +59,8 @@ void mngl::Texture::Use(int _textureIndex)
     glBindTexture(GL_TEXTURE_2D, m_textureID);
 }
 
-void mngl::Texture::Shutdown()
+void mngl::Texture::Shutdown(int _textureIndex)
 {
+    glActiveTexture(GL_TEXTURE0 + _textureIndex);
     glBindTexture(GL_TEXTURE_2D, 0);
 }

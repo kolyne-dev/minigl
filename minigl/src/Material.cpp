@@ -62,6 +62,6 @@ void mngl::Material::Use() const {
 }
 
 void mngl::Material::Shutdown() const {
-        m_specularTexture->Shutdown();
-        m_diffuseTexture->Shutdown();
+        m_diffuseTexture->Shutdown(0);
+        m_specularTexture->Shutdown(1);
 }
