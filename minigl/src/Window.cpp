@@ -7,9 +7,28 @@
 
 #include "minigl/Texture.h"
 
-void mngl::Window::FrameBufferSizeCallback(GLFWwindow* window, int width, int height)
+void mngl::Window::FrameBufferSizeCallback(GLFWwindow* _window, int _width, int _height)
 {
-    glViewport(0, 0, width, height);
+    glViewport(0, 0, _width, _height);
+    Window* self = static_cast<Window *>(glfwGetWindowUserPointer(_window));
+    Camera c = self->GetCurrentCamera();
+    c.SetAspectRatio((float)_width / (float)_height);
+    self->SetCamera(c);
+}
+
+void mngl::Window::SetKeyCallback(GLFWwindow* _window, int _key, int _scancode, int _action, int _mode)
+{
+    if (_action == GLFW_REPEAT)
+        return;
+    Window* self = static_cast<Window *>(glfwGetWindowUserPointer(_window));
+    self->m_input.UpdateKey(static_cast<Input::EKeyCode>(_key), _action == GLFW_PRESS ? Input::JUST_PRESSED : Input::JUST_RELEASED);
+}
+void mngl::Window::SetMouseButtonCallback(GLFWwindow* _window, int _button, int _action, int _mode)
+{
+    if (_action == GLFW_REPEAT)
+        return;
+    Window* self = static_cast<Window *>(glfwGetWindowUserPointer(_window));
+    self->m_input.UpdateMouse(static_cast<Input::EKeyMouseCode>(_button), _action == GLFW_PRESS ? Input::JUST_PRESSED : Input::JUST_RELEASED);
 }
 
 mngl::Window::Window(int _width, int _height, std::string _name)
@@ -29,8 +48,11 @@ mngl::Window::Window(int _width, int _height, std::string _name)
         glfwTerminate();
         exit(1);
     }
+    glfwSetWindowUserPointer(m_win, this);
     glfwMakeContextCurrent(m_win);
     glfwSetFramebufferSizeCallback(m_win, FrameBufferSizeCallback);
+    glfwSetKeyCallback(m_win, SetKeyCallback);
+    glfwSetMouseButtonCallback(m_win, SetMouseButtonCallback);
 
     if (!gladLoadGL(glfwGetProcAddress))
     {
@@ -86,6 +108,14 @@ const mngl::Light& mngl::Window::GetCurrentLight() {
     return m_light;
 }
 
+const mngl::Input& mngl::Window::GetInput() {
+    return m_input;
+}
+
+void mngl::Window::SetCursorMode(bool _hide) {
+    glfwSetInputMode(m_win, GLFW_CURSOR, _hide ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+}
+
 void mngl::Window::Clear(const Color& _color)
 {
     glClearColor(_color.r, _color.g, _color.b, _color.a);
@@ -95,6 +125,7 @@ void mngl::Window::Clear(const Color& _color)
 void mngl::Window::Display()
 {
     glfwSwapBuffers(m_win);
+    m_input.Update(m_win);
     glfwPollEvents();
 }
 

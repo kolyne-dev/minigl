@@ -30,6 +30,10 @@ namespace mngl
         void SetScale(const glm::fvec3& _scale);
         void Scale(const glm::fvec3& _scale);
 
+        glm::fvec3 Forward() const;
+        glm::fvec3 Up() const;
+        glm::fvec3 Right() const;
+
 
         [[nodiscard]] virtual glm::mat4 GetTransform() const;
     };

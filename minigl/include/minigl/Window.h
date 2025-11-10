@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Color.h"
 #include "Drawable.h"
+#include "Input.h"
 #include "Light.h"
 
 class GLFWwindow;
@@ -22,8 +23,11 @@ namespace mngl
         Shader* m_shader;
         Camera m_camera;
         Light m_light;
+        Input m_input;
 
         static void FrameBufferSizeCallback(GLFWwindow* window, int width, int height);
+        static void SetKeyCallback(GLFWwindow *_window, int _key, int _scancode, int _action, int _mode);
+        static void SetMouseButtonCallback(GLFWwindow *_window, int _butto, int _action, int _mode);
 
     public:
         Window(int _width, int _height, std::string _name);
@@ -40,6 +44,9 @@ namespace mngl
 
         void SetLight(const Light& _light);
         const Light& GetCurrentLight();
+
+        const Input& GetInput();
+        void SetCursorMode(bool _hide);
 
         void Clear(const Color& _color);
         void Display();
