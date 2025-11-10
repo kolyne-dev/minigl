@@ -58,16 +58,16 @@ int main(int argc, char** argv)
             camera.Move(camera.Up() * -10.f * dt);
         }
         if (input.IsKeyPressed(mngl::Input::UP)) {
-            camera.Rotate({M_PI * 0.5f * dt, 0, 0});
+            camera.Rotate({glm::pi<float>() * 0.5f * dt, 0, 0});
         }
         if (input.IsKeyPressed(mngl::Input::DOWN)) {
-            camera.Rotate({M_PI * -0.5f * dt, 0, 0});
+            camera.Rotate({glm::pi<float>() * -0.5f * dt, 0, 0});
         }
         if (input.IsKeyPressed(mngl::Input::LEFT)) {
-            camera.Rotate({0, M_PI * 0.5f * dt, 0});
+            camera.Rotate({0, glm::pi<float>() * 0.5f * dt, 0});
         }
         if (input.IsKeyPressed(mngl::Input::RIGHT)) {
-            camera.Rotate({0, M_PI * -0.5f * dt, 0});
+            camera.Rotate({0, glm::pi<float>() * -0.5f * dt, 0});
         }
         win.SetCamera(camera);
 
