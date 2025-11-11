@@ -5,6 +5,8 @@
 #include <glm/ext/matrix_clip_space.hpp>
 #include <minigl/Camera.h>
 
+#include "glm/ext/matrix_transform.hpp"
+
 mngl::Camera::Camera() : m_fov(glm::radians(75.f)), m_aspectRatio(4.f / 3.f), m_zFar(100.f), m_zNear(0.1f)
 {
 }
@@ -31,5 +33,9 @@ void mngl::Camera::SetNearFarPlane(float _zNear, float _zFar)
 }
 
 glm::mat4 mngl::Camera::GetTransform() const {
-    return glm::inverse(Transformable::GetTransform());
+    glm::vec3 position = GetPosition();
+    position.z = -position.z;
+    glm::vec3 forward = Forward();
+    forward.z = -forward.z;
+    return glm::lookAt(position, position + forward, Up());//glm::inverse(Transformable::GetTransform());
 }

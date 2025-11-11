@@ -61,8 +61,8 @@ void mngl::Transformable::Scale(const glm::fvec3& _scale)
 }
 
 glm::fvec3 mngl::Transformable::Forward() const {
-    glm::fvec3 ret = glm::toMat4(glm::quat(m_rotation)) * glm::fvec4{0, 0, -1, 1};
-    return {ret.x, ret.y, -ret.z};
+    glm::fvec3 ret = glm::toMat4(glm::quat(m_rotation)) * glm::fvec4{0, 0, 1, 1};
+    return {ret.x, ret.y, ret.z};
 }
 
 glm::fvec3 mngl::Transformable::Up() const {
@@ -79,6 +79,6 @@ glm::mat4 mngl::Transformable::GetTransform() const
 {
     glm::vec3 invertedZ = {m_position.x, m_position.y, -m_position.z};
     return glm::translate(glm::mat4(1.0f), invertedZ)
-        * glm::scale(glm::mat4(1.f), m_scale)
-        * glm::toMat4(glm::quat(m_rotation));
+        * glm::toMat4(glm::quat(m_rotation))
+        * glm::scale(glm::mat4(1.f), m_scale);
 }
