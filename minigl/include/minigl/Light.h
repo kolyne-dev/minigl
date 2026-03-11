@@ -16,15 +16,25 @@ namespace mngl {
         Color m_diffuseColor;
         Color m_specularColor;
 
+        float m_constant;
+        float m_linear;
+        float m_quadratic;
+
     public:
         Light();
         void SetAmbientColor(Color _ambientColor);
         void SetDiffuseColor(Color _diffuseColor);
         void SetSpecularColor(Color _specularColor);
+        void SetConstantAttenuation(float _constant);
+        void SetLinearAttenuation(float _constant);
+        void SetQuadraticAttenuation(float _constant);
 
         Color GetAmbientColor();
         Color GetDiffuseColor();
         Color GetSpecularColor();
+        float GetConstantAttenuation();
+        float GetLinearAttenuation();
+        float GetQuadraticAttenuation();
 
         friend Shader;
     };

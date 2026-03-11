@@ -131,6 +131,9 @@ void mngl::Shader::SetLight(const std::string &_name, const Light &_value) const
     SetColor(_name+".ambient" ,_value.m_ambientColor);
     SetColor(_name+".diffuse" ,_value.m_diffuseColor);
     SetColor(_name+".specular" ,_value.m_specularColor);
+    SetFloat(_name+".constant" ,_value.m_constant);
+    SetFloat(_name+".linear" ,_value.m_linear);
+    SetFloat(_name+".quadratic" ,_value.m_quadratic);
 }
 
 void mngl::Shader::SetVector3(const std::string& _name, const glm::vec3& _value) const

@@ -29,9 +29,19 @@ int main(int argc, char** argv)
     m.SetDiffuseTexture(&cat);
     c.SetMaterial(m);
 
+    std::vector<mngl::Transformable> position;
 
-    c.SetRotation({1.f, 1.f, 1.f});
-    c.SetScale({0.5, 0.5, 0.5});
+    for (int i = 0; i < 50; i++)
+    {
+        mngl::Transformable t;
+        t.SetPosition({-5 + rand() % 10 , -5 + rand() % 10, 5 + rand() % 10});
+        t.SetRotation({glm::radians((float)rand()), glm::radians((float)rand()), glm::radians((float)rand())});
+        t.SetScale({0.5, 0.5, 0.5});
+        position.push_back(t);
+    }
+
+    // c.SetRotation({1.f, 1.f, 1.f});
+    // c.SetScale({0.5, 0.5, 0.5});
 
     while (win.IsOpen())
     {
@@ -78,7 +88,13 @@ int main(int argc, char** argv)
         win.SetLight(mainLight);
 
         win.Clear(mngl::Color::Black);
-        win.Draw(c);
+        for (auto & t : position)
+        {
+            c.SetPosition(t.GetPosition());
+            c.SetRotation(t.GetRotation());
+            c.SetScale(t.GetScale());
+            win.Draw(c);
+        }
         win.Draw(light);
         win.Display();
     }
